@@ -1,0 +1,15 @@
+{
+  "name": "puppeteer-hello-world",
+  "version": "1.0.0",
+  "description": "getting comfortable with puppeteer for larger projects. This is just a hello-world, as it's my first time working with it.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "puppeteer": "^23.1.0"
+  }
+}
