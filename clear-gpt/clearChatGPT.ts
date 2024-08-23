@@ -10,10 +10,11 @@ const wsChromeEndpointUrl: string = `ws://localhost:${port}/devtools/browser/${b
 
 
 (async () => {
+    let browser: Browser | null = null;
     try {
         // connect to already open browser
         console.log("connectine to local browser on port 9222");
-        const browser: Browser = await puppeteer.connect({
+        browser = await puppeteer.connect({
             browserWSEndpoint: wsChromeEndpointUrl,
         });
 
@@ -88,5 +89,8 @@ deleting convo titled: ${convoTitle}
 
     } catch (error) {
         console.error("An error occurred: ", error);
+    } finally {
+        console.log("Disconnecting from browser...");
+        await browser?.disconnect();
     }
 })();
