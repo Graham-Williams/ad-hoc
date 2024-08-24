@@ -32,8 +32,9 @@ if you're not already in the `clear-gpt` directory:
 4. **Configure the Script**:
     - Open the `clearChatGPT.ts` file.
     - Change the `browserGuid` variable to match the output of the command you used to start Chrome.
+    - Change the `allowList` variable to conatin substrings of convos you want to excdlue from deletion.
 
-4. **Log in to ChatGPT**:
+5. **Log in to ChatGPT**:
     - Go to the Chrome browser instance that was started with remote debugging in step 3.
     - Log in to ChatGPT and navigate to the home page. Ensure you do not click into any specific conversations; you must be on the home page.
 
