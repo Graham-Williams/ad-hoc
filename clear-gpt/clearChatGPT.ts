@@ -1,13 +1,21 @@
 import puppeteer, { Browser, Page } from 'puppeteer';
 
+/*
+ * +--------------------------------------------+
+ * |                  CHANGE ME!!               |
+ * |                                            |
+ * | See README on how to adjust the vars below |
+ * |                                            |
+ * +--------------------------------------------+
+*/
+const browserGuid: string = "d00dec97-a925-43a8-87b3-3ca726561865";
+let allowList: string[] = ["ing q", "ass", "w c"]; // leave as empty array if you want to delete all convos
+
+
 const chatGptTitle = "ChatGPT";
 const chatGptUrl = "https://chatgpt.com/";
-
-// run `/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --remote-debugging-port=9222 --no-first-run --no-default-browser-check --user-data-dir=$(mktemp -d -t 'chrome-remote_data_dir`
-const browserGuid: string = "d00dec97-a925-43a8-87b3-3ca726561865"; // change based on output of above command
-const port: number = 9222;
-const wsChromeEndpointUrl: string = `ws://localhost:${port}/devtools/browser/${browserGuid}`;
-
+const debugginPort: number = 9222;
+const wsChromeEndpointUrl: string = `ws://localhost:${debugginPort}/devtools/browser/${browserGuid}`;
 
 (async () => {
     let browser: Browser | null = null;
@@ -47,6 +55,15 @@ const wsChromeEndpointUrl: string = `ws://localhost:${port}/devtools/browser/${b
         // TODO: confirm each element is actually found, and if not, throw specific error
         for (const convoItem of convoItems) {
             const convoTitle = await convoItem.evaluate(el => el.textContent?.trim());
+            if (allowList.some(substring => convoTitle?.toLowerCase().includes(substring.toLowerCase()))) {
+                console.log(`
+---------------------------------------------------
+skipping convo titled: ${convoTitle}
+it contains a substring that was allow-listed...
+---------------------------------------------------`);
+            continue;
+            }
+
             console.log(`
 ---------------------------------------------------
 deleting convo titled: ${convoTitle}
